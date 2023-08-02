@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Buscar Ticket
+{% endblock title %}
+
+
+{% block content %}
+<h1 class="mt-5">Informacion de ticket</h1>
+<form id="busquedaTicket" method="POST" action="." enctype="multipart/form-data" class="row g-3">
+    {% csrf_token %}
+    <div class="col-3">
+        <label for="codigoTicket" class="form-label">Codigo del Ticket</label>
+        <input type="text" class="form-control" maxlength="8" id="codigoTicket" placeholder="Ej. H13JG2">
+    </div>
+    <div class="col-12">
+        <button type="submit" id="buscar_btn" class="btn btn-primary">Consultar</button>
+    </div>
+    
+</form>
+<br><br>
+<div class="row col 6" id="mensaje">
+    
+</div>
+{% endblock content %}
+
+{% block javascript %}
+
+<script>
+    const buscar_url = "{% url 'ticket_app:resultado_busqueda' %}";
+    $(document).ready(function(){
+        $('#busquedaTicket').submit(function(event){
+            event.preventDefault();
+
+            let codigo = $('#codigoTicket').val();
+            let csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+            
+            $.ajax({
+                type: 'POST',
+                url: buscar_url,
+                data:{
+                    'codigoTicket': codigo,
+                    'csrfmiddlewaretoken': csrf_token
+                },
+                success: function(data){
+                    if(data.error){
+                        alert('Error, verifique el codigo');
+                        $('#busquedaTicket')[0].reset();
+                    }else{
+                        let aviso_html = '<div class="card" style="width: 18rem;"> <div class="card-header"> <h5 class="card-title">Su ticket: <span class="fw-bold">' + data.codigo + ' </span></h5> </div> <div class="card-body"> <p class="card-text">Con titulo: <span class="fw-bold"> ' + data.title + ' </span></p> <p class="card-text">Se encuentra: </p> <span class="badge rounded-pill bg-primary fs-6 btn-sm btn-flat">'+ data.estado +'</span> </div> </div>';
+                        $('#mensaje').prepend(aviso_html);
+                        $('#busquedaTicket')[0].reset();
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock javascript %}

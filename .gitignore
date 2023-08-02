@@ -10,6 +10,8 @@ secret.json
 local.py
 prod.py
 
+migrations/
+
 # Distribution / packaging
 .Python
 build/
