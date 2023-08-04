@@ -22,7 +22,7 @@ def resultado_busqueda(request):
         except Exception as e:
             print('Error al buscar ticket--> ',e)
             transaction.rollback()
-            return render(request, 'buscar_ticket.html')
+            return render(request, 'home/buscar_ticket.html')
         else:
             transaction.commit()
             return JsonResponse({'codigo': ticket.codigo_ticket, 'title': ticket.title, 'estado': estado.status})
