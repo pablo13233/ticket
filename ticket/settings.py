@@ -149,7 +149,4 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "https://ticket-production-461f.up.railway.app",
-    # Otros orígenes confiables aquí
-]
+CSRF_TRUSTED_ORIGINS=['https://ticket-production-461f.up.railway.app']
