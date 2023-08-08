@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn ticket.wsgi
+web: python manage.py migrate && python manage.py collectstatic && gunicorn ticket.wsgi
