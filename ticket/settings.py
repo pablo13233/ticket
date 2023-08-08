@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$dgasqxr%c^+29rgl3#%jsmv=o!hs_k@8_y_9c9#t%p!)h$v2w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -88,8 +88,12 @@ WSGI_APPLICATION = 'ticket.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'oPcPPo32O12aWdllM5r2',
+        'HOST': 'containers-us-west-52.railway.app',
+        'PORT': '7800',
     }
 }
 
